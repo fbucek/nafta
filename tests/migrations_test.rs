@@ -24,7 +24,6 @@ mod tests {
     //#[cfg_attr(test, macro_use)]
     use super::*;
 
-    /// TODO: Not used for now -> have to add more tests
     #[derive(Queryable)]
     struct Post {
         id: i32,
@@ -32,7 +31,7 @@ mod tests {
         body: String,
     }
 
-    #[derive(Insertable, Debug)]
+    #[derive(Insertable)]
     #[table_name = "posts"]
     struct NewPost<'a> {
         title: &'a str,

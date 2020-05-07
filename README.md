@@ -1,7 +1,7 @@
 # Nafta
 Creates temporary SQLite database for testing
 
-# Minimal example
+## Minimal example
 
 ```rust
 // Database
@@ -22,7 +22,7 @@ mod tests {
     }
 }
 ```
-# Example with migration
+## Example with migration
 
 ```rust
 // Database
@@ -38,9 +38,6 @@ embed_migrations!("migrations");
 
 #[cfg(test)]
 mod tests {
-    use actixjwt::db;
-
-    embed_migrations!("migrations");
 
     #[test]
     async fn test_get_user() {
@@ -49,12 +46,11 @@ mod tests {
             .conn()
             .expect("Not possible to get pooled connection");
 
+        // Database migration
         embedded_migrations::run(&conn).expect("Migration not possible to run");
 
-        let pool = std::sync::Arc::new(test_db.pool);
-
-        // Test
-        let all_user = db::users::get_all_users(pool);
+        // Example method to get all users
+        let all_user = db::users::get_all_users(test_db.pool);
         assert!(all_user.is_ok());
     }
 }

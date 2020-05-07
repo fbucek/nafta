@@ -42,11 +42,8 @@
 //! 
 //! #[cfg(test)]
 //! mod tests {
-//!     use actixjwt::db;
-//! 
-//!     embed_migrations!("migrations");
-//! 
-//!     #[test]
+//!
+    //!     #[test]
 //!     async fn test_get_user() {
 //!         let test_db = nafta::sqlite::TestDb::new();
 //!         let conn = test_db
@@ -55,10 +52,8 @@
 //! 
 //!         embedded_migrations::run(&conn).expect("Migration not possible to run");
 //! 
-//!         let pool = std::sync::Arc::new(test_db.pool);
-//! 
 //!         // Test
-//!         let all_user = db::users::get_all_users(pool);
+//!         let all_user = db::users::get_all_users(test_db.pool);
 //!         assert!(all_user.is_ok());
 //!     }
 //! }
