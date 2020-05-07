@@ -1,0 +1,15 @@
+name: build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # - name: Install sqlite
+    #   run: sudo apt-get install libsqlite3-dev
+    - uses: actions/checkout@v2
+
+    - run: cargo build
+    - run: cargo test
