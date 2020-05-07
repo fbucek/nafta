@@ -6,17 +6,20 @@ pub type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 /// Test database builder
 /// 
 pub struct TestDb {
-    pub tmp_dir: tempdir::TempDir,
+    pub tmp_dir: tempfile::TempDir,
     pub db_path: std::path::PathBuf,
     pub pool: Pool,
 }
 
 impl TestDb {
-    /// Creates empty SQLite database using `tempdir` ( file: `test.db` folder based on `CARGO_PKG_NAME` )
+    /// Creates empty SQLite database using `tempfile` ( file: `test.db` folder based on `CARGO_PKG_NAME` )
     pub fn new() -> TestDb {
         // Create temporary dir where db will be stored
-        let tmp_dir =
-            tempdir::TempDir::new(env!("CARGO_PKG_NAME")).expect("Not possible to create tempdir");
+        let tmp_dir = tempfile::Builder::new()
+            .prefix(env!("CARGO_PKG_NAME"))
+            .rand_bytes(5)
+            .tempdir()
+            .expect("not possible to create tempfile");
 
         let db_path = tmp_dir.path().join("test.db");
 

@@ -12,7 +12,7 @@ keywords = ["database", "sqlite", "test"]
 category = ["Development tools"]
 
 [dependencies]
-tempdir = "0.3"
+tempfile = "3.1"
 diesel = { version = "1.4", features = ["r2d2", "sqlite"] }
 
 [dev-dependencies]
