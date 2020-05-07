@@ -24,3 +24,12 @@ jobs:
       run: cargo build 
     - name: Run tests
       run: cargo test
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: cargo build 
+    - name: Run tests
+      run: cargo test
