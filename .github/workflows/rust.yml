@@ -29,15 +29,21 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: "Check vcvar64.bat ( remove when working )"
-      run: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+      shell: cmd
+
     - name: Install SQLite using Chocolatey
       run: |
         choco install sqlite
+
     - name: Run vcvar64.bat
-      run: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
-    - name: Create sqlite3
-      run: "lib /def:sqlite3.def /out:sqlite3.lib"
-      working-directory: "C:/ProgramData/chocolatey/lib/SQLite/tools"
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        cd  "C:\ProgramData\chocolatey\lib\SQLite\tools"
+        lib /def:sqlite3.def /out:sqlite3.lib
+      shell: cmd
+
     - uses: actions/checkout@v1
     - name: Build
       run: cargo build 
