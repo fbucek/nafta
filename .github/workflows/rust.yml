@@ -3,6 +3,7 @@ name: build
 on: [push]
 
 jobs:
+  # TODO: enable whent windows job is working
   # build-ubuntu:
   #   runs-on: ubuntu-latest
 
@@ -28,6 +29,8 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
+    env: 
+      SQLITE3_LIB_DIR: "C:\sqlite"
     - name: "Install SQLite"
       shell: cmd
       run: |
@@ -39,25 +42,9 @@ jobs:
           lib /machine:x64 /def:sqlite3.def /out:sqlite3.lib
           set PATH=%PATH%;C:\sqlite
           echo "##vso[task.setvariable variable=PATH;]%PATH%;C:\sqlite"
-
-    # - name: "Check vcvar64.bat ( remove when working )"
-    #   run: |
-    #     call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-    #   shell: cmd
-
-    # - name: Install SQLite using Chocolatey
-    #   run: |
-    #     choco install sqlite
-
-    # - name: Run vcvar64.bat
-    #   run: |
-    #     call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-    #     cd  "C:\ProgramData\chocolatey\lib\SQLite\tools"
-    #     lib /def:sqlite3.def /out:sqlite3.lib
-    #   shell: cmd
-
     - uses: actions/checkout@v1
-    - name: Build
-      run: cargo build 
+    # TODO: enable when test working
+    # - name: Build
+    #   run: cargo build 
     - name: Run tests
       run: cargo test
