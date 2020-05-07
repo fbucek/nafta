@@ -1,6 +1,12 @@
 # Nafta
 Creates temporary SQLite database for testing
 
+```toml
+[dev-dependencies]
+nafta = { git = "https://github.com/fbucek/nafta" }
+```
+
+
 ## Minimal example
 
 ```rust
