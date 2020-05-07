@@ -29,7 +29,7 @@ jobs:
   build-windows:
     runs-on: windows-latest
     env: 
-      SQLITE3_LIB_DIR: "C:\sqlite"
+      SQLITE3_LIB_DIR: "C:\\sqlite"
     steps:
     - name: "Install SQLite"
       shell: cmd
