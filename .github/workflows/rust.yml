@@ -29,7 +29,10 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Install SQLite using Chocolatey
-      run: choco install sqlite
+      run: |
+        choco install sqlite
+        cd C:\ProgramData\chocolatey\lib\SQLite\tools
+        lib /def:sqlite3.def /out:sqlite3.lib
     - uses: actions/checkout@v1
     - name: Build
       run: cargo build 
