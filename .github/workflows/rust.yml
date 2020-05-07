@@ -28,7 +28,7 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-    - name: Check vcvar64.bat ( remove when working )
+    - name: "Check vcvar64.bat ( remove when working )"
       run: "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
     - name: Install SQLite using Chocolatey
       run: |
