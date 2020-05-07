@@ -3,7 +3,7 @@ name: build
 on: [push]
 
 jobs:
-  build:
+  build-ubuntu:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,6 +27,8 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
+    env:
+      VCPKGRS_DYNAMIC: 1
     steps:
     - name: Install sqlite
       run: vcpkg install sqlite3:x64-windows
