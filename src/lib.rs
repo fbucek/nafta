@@ -1,6 +1,6 @@
 //! # Nafta
 //!
-//! Creates temporary SQLite database for testing
+//! Creates temporary SQLite database for testing using diesel.
 //! 
 //!  # Minimal example
 //! 
