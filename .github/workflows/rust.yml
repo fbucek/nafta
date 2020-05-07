@@ -3,27 +3,27 @@ name: build
 on: [push]
 
 jobs:
-  build-ubuntu:
-    runs-on: ubuntu-latest
+  # build-ubuntu:
+  #   runs-on: ubuntu-latest
 
-    steps:
-    # Needed because of: migrations_macros v1.4.2
-    # note: /usr/bin/ld: cannot find -lsqlite3
-    - name: Install sqlite
-      run: sudo apt-get install libsqlite3-dev
-    - uses: actions/checkout@v2
+  #   steps:
+  #   # Needed because of: migrations_macros v1.4.2
+  #   # note: /usr/bin/ld: cannot find -lsqlite3
+  #   - name: Install sqlite
+  #     run: sudo apt-get install libsqlite3-dev
+  #   - uses: actions/checkout@v2
 
-    - run: cargo build
-    - run: cargo test
+  #   - run: cargo build
+  #   - run: cargo test
 
-  build-macos:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Build
-      run: cargo build 
-    - name: Run tests
-      run: cargo test
+  # build-macos:
+  #   runs-on: macos-latest
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #   - name: Build
+  #     run: cargo build 
+  #   - name: Run tests
+  #     run: cargo test
 
   build-windows:
     runs-on: windows-latest
@@ -31,6 +31,8 @@ jobs:
     - name: Install SQLite using Chocolatey
       run: |
         choco install sqlite
+    - name: Create sqlite3.lib
+      run: |
         cd C:\ProgramData\chocolatey\lib\SQLite\tools
         lib /def:sqlite3.def /out:sqlite3.lib
     - uses: actions/checkout@v1
