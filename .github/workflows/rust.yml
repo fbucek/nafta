@@ -3,9 +3,8 @@ name: build
 on: [push]
 
 jobs:
-  build-ubuntu:
+  ubuntu:
     runs-on: ubuntu-latest
-
     steps:
     # Needed because of: migrations_macros v1.4.2
     # note: /usr/bin/ld: cannot find -lsqlite3
@@ -16,7 +15,7 @@ jobs:
     - run: cargo build
     - run: cargo test
 
-  build-macos:
+  macos:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
@@ -25,7 +24,7 @@ jobs:
     - name: Run tests
       run: cargo test
 
-  build-windows:
+  windows:
     runs-on: windows-latest
     env: 
       SQLITE3_LIB_DIR: "C:\\sqlite"
