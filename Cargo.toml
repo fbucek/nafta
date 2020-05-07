@@ -7,8 +7,9 @@ edition = "2018"
 license = "MIT"
 repository = "https://github.com/fbucek/nafta"
 readme = "README.md"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+exclude = [".github/*"]
+keywords = ["database", "sqlite", "test"]
+category = ["Development tools"]
 
 [dependencies]
 tempdir = "0.3"
