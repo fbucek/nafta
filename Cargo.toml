@@ -2,7 +2,11 @@
 name = "nafta"
 version = "0.1.0"
 authors = ["Filip Bucek <fbucek@invloop.cz>"]
+description = "Creates temporary SQLite database for testing using diesel."
 edition = "2018"
+license = "MIT"
+repository = "https://github.com/fbucek/nafta"
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -12,4 +16,3 @@ diesel = { version = "1.4", features = ["r2d2", "sqlite"] }
 
 [dev-dependencies]
 diesel_migrations = "1.4"
-
