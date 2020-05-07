@@ -3,7 +3,8 @@ use diesel::r2d2::{self, ConnectionManager, PooledConnection};
 
 pub type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
-/// When crated database it is necessary to up
+/// Test database builder
+/// 
 pub struct TestDb {
     pub tmp_dir: tempdir::TempDir,
     pub db_path: std::path::PathBuf,
@@ -11,7 +12,7 @@ pub struct TestDb {
 }
 
 impl TestDb {
-    /// Helper method to create database for testing
+    /// Creates empty SQLite database using `tempdir` ( file: `test.db` folder based on `CARGO_PKG_NAME` )
     pub fn new() -> TestDb {
         // Create temporary dir where db will be stored
         let tmp_dir =
@@ -33,7 +34,7 @@ impl TestDb {
         }
     }
 
-    /// Get connections
+    /// Pooled connection
     pub fn conn(&self) -> Option<PooledConnection<ConnectionManager<SqliteConnection>>> {
         // Result -> Ok
         self.pool.get().ok()
