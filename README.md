@@ -3,7 +3,7 @@ Creates temporary SQLite database for testing
 
 # Minimal example
 
-```
+```rust
 // Database
 extern crate diesel;
 
@@ -23,7 +23,8 @@ mod tests {
 }
 ```
 # Example with migration
-```ignore
+
+```rust
 // Database
 extern crate diesel;
 
