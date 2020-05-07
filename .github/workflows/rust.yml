@@ -27,11 +27,9 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
-    env:
-      VCPKGRS_DYNAMIC: 1
     steps:
-    - name: Install sqlite
-      run: vcpkg install sqlite3:x64-windows
+    - name: Install SQLite using Chocolatey
+      run: choco install sqlite
     - uses: actions/checkout@v1
     - name: Build
       run: cargo build 
