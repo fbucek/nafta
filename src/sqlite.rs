@@ -6,9 +6,9 @@ pub type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 /// Test database builder
 /// 
 pub struct TestDb {
-    pub tmp_dir: tempfile::TempDir,
-    pub db_path: std::path::PathBuf,
     pub pool: Pool,
+    pub db_path: std::path::PathBuf,
+    pub tmp_dir: tempfile::TempDir,
 }
 
 impl TestDb {
@@ -45,14 +45,19 @@ impl TestDb {
 
 }
 
-impl Drop for TestDb {
-    fn drop(&mut self) {
-        // Have to remove file before temp_dir goes out of scope
-        // @see https://docs.rs/tempfile/3.1.0/tempfile/struct.TempDir.html#resource-leaking
-        std::fs::remove_file(&self.db_path)
-            .expect(format!("Not possible to remove self.db_path: {:?}", self.db_path).as_str());
-    }
-}
+// impl Drop for TestDb {
+//     fn drop(&mut self) {
+//         // Necesary to drop pool first 
+//         let pool = self.pool.take();
+//         drop(pool);
+//         // self.pool = None;
+//         // drop(&self.pool);
+//         // Have to remove file before temp_dir goes out of scope
+//         // @see https://docs.rs/tempfile/3.1.0/tempfile/struct.TempDir.html#resource-leaking
+//         std::fs::remove_file(&self.db_path)
+//             .expect(format!("Not possible to remove self.db_path: {:?}", self.db_path).as_str());
+//     }
+// }
 
 
 
@@ -64,10 +69,6 @@ mod tests {
     #[test]
     fn test_lifecycle() {
         let test_db = TestDb::new();
-        let test_db2 = TestDb::new();
-        let test_db3 = TestDb::new();
-        let test_db4 = TestDb::new();
-        let test_db5 = TestDb::new();
 
         // Path with database must exists
         let path = test_db.db_path.to_owned();
@@ -78,20 +79,19 @@ mod tests {
         assert!(dirpath.exists());
 
         // Path after TestDb is drop must not exists
-        
-        drop(test_db);
-        drop(test_db2);
-        drop(test_db3);
-        drop(test_db4);
-        drop(test_db5);
+        let parent = dirpath.parent().unwrap();
 
-        dirpath.pop();
-
-        let list = std::fs::read_dir(&dirpath).unwrap();
+        let list = std::fs::read_dir(&parent).unwrap();
         for item in list {
             println!("Name: {:?}", item);
         }
 
+        drop(test_db);
+
+        let list = std::fs::read_dir(&parent).unwrap();
+        for item in list {
+            println!("Name: {:?}", item);
+        }
 
         assert!(!dirpath.exists());
         assert!(!path.exists());
