@@ -3,7 +3,7 @@ name: build
 on: [push]
 
 jobs:
-  ubuntu:
+  # ubuntu:
   #   runs-on: ubuntu-latest
   #   steps:
   #   # Needed because of: migrations_macros v1.4.2
