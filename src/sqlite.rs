@@ -45,22 +45,6 @@ impl TestDb {
 
 }
 
-// impl Drop for TestDb {
-//     fn drop(&mut self) {
-//         // Necesary to drop pool first 
-//         let pool = self.pool.take();
-//         drop(pool);
-//         // self.pool = None;
-//         // drop(&self.pool);
-//         // Have to remove file before temp_dir goes out of scope
-//         // @see https://docs.rs/tempfile/3.1.0/tempfile/struct.TempDir.html#resource-leaking
-//         std::fs::remove_file(&self.db_path)
-//             .expect(format!("Not possible to remove self.db_path: {:?}", self.db_path).as_str());
-//     }
-// }
-
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -93,7 +77,7 @@ mod tests {
             println!("Name: {:?}", item);
         }
 
-        // On Windows platform
+        // On Windows/GitHub Actions problem with failing #9
         std::thread::sleep(std::time::Duration::from_millis(100));
 
         assert!(!dirpath.exists());

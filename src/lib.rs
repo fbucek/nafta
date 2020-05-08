@@ -16,7 +16,7 @@
 //! drop(conn); 
 //! // Dropping `test_db` to check it was really removed
 //! drop(test_db);
-//! // #9 Problem on windows - tempdir not removed when checked 
+//! // sleep added due to problem on windows/github actions randomly failed #9
 //! std::thread::sleep(std::time::Duration::from_millis(100));
 //! assert!(!path.exists()); // Neccessary to test if path was removed
 //! ```
