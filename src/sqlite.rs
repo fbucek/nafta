@@ -74,7 +74,7 @@ mod tests {
         let path = test_db.db_path.to_owned();
         assert!(path.exists());
 
-        let mut dirpath: std::path::PathBuf = test_db.tmp_dir.path().to_path_buf();
+        let dirpath: std::path::PathBuf = test_db.tmp_dir.path().to_path_buf();
 
         assert!(dirpath.exists());
 
