@@ -64,14 +64,34 @@ mod tests {
     #[test]
     fn test_lifecycle() {
         let test_db = TestDb::new();
+        let test_db2 = TestDb::new();
+        let test_db3 = TestDb::new();
+        let test_db4 = TestDb::new();
+        let test_db5 = TestDb::new();
 
         // Path with database must exists
         let path = test_db.db_path.to_owned();
         assert!(path.exists());
-        let dirpath = test_db.tmp_dir.path().to_path_buf();
+
+        let mut dirpath: std::path::PathBuf = test_db.tmp_dir.path().to_path_buf();
+
         assert!(dirpath.exists());
 
+        // Path after TestDb is drop must not exists
+        
         drop(test_db);
+        drop(test_db2);
+        drop(test_db3);
+        drop(test_db4);
+        drop(test_db5);
+
+        dirpath.pop();
+
+        let list = std::fs::read_dir(&dirpath).unwrap();
+        for item in list {
+            println!("Name: {:?}", item);
+        }
+
 
         assert!(!dirpath.exists());
         assert!(!path.exists());
