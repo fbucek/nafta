@@ -31,15 +31,14 @@ jobs:
     steps:
     - name: "Install SQLite"
       shell: cmd
-      run: |
-          mkdir C:\sqlite
-          CD /D C:\sqlite
-          curl -fsS --retry 3 --retry-connrefused -o sqlite3.zip https://sqlite.org/2017/sqlite-dll-win64-x64-3160200.zip
-          7z e sqlite3.zip -y
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          lib /machine:x64 /def:sqlite3.def /out:sqlite3.lib
-          set PATH=%PATH%;C:\sqlite
-          echo "##vso[task.setvariable variable=PATH;]%PATH%;C:\sqlite"
+      run: .github/install-sqlite.bat
+          # mkdir C:\sqlite
+          # CD /D C:\sqlite
+          # curl -fsS --retry 3 --retry-connrefused -o sqlite3.zip https://sqlite.org/2017/sqlite-dll-win64-x64-3160200.zip
+          # 7z e sqlite3.zip -y
+          # call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          # lib /machine:x64 /def:sqlite3.def /out:sqlite3.lib
+          # set PATH=%PATH%;C:\sqlite
     - uses: actions/checkout@v1
     # - name: Build
     #   run: cargo build 
