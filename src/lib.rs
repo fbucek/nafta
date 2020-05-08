@@ -16,7 +16,9 @@
 //! drop(conn); 
 //! // Dropping `test_db` to check it was really removed
 //! drop(test_db);
-//! assert!(!path.exists()); // Neccessary to test if path war removed
+//! // #9 Problem on windows - tempdir not removed when checked 
+//! std::thread::sleep(std::time::Duration::from_millis(100));
+//! assert!(!path.exists()); // Neccessary to test if path was removed
 //! ```
 //!
 //! # Example with migration

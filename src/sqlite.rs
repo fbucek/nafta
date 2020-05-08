@@ -93,6 +93,9 @@ mod tests {
             println!("Name: {:?}", item);
         }
 
+        // On Windows platform
+        std::thread::sleep(std::time::Duration::from_millis(100));
+
         assert!(!dirpath.exists());
         assert!(!path.exists());
     }
