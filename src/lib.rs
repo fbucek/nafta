@@ -4,26 +4,19 @@
 //! 
 //!  # Minimal example
 //! 
-//! ```
-//! // Database
-//! extern crate diesel;
-//! 
-//! #[cfg(test)]
-//! mod tests {
-//!     #[test]
-//!     fn test_get_user() {
-//!         // Creates empty SQLite database in temporary folder
-//!         let test_db = nafta::sqlite::TestDb::new();
+//! ```rust
+//! // Creates empty SQLite database in temporary folder
+//! let test_db = nafta::sqlite::TestDb::new();
+//! // Work with the conn
+//! let conn = test_db.conn();
 //!
-//!         let pool = std::sync::Arc::new(test_db.pool);
-//!         // Use code to work with the pool
-//!
-//!         // You can check that database is removed
-//!         let path = test_db.db_path.to_owned();
-//!         drop(test_db);
-//!         assert!(!path.exists());
-//!     }
-//! }
+//! // You can check that database is removed
+//! let path = test_db.db_path.clone();
+//! // Necessary to drop anything which can block file
+//! drop(conn); 
+//! // Dropping `test_db` to check it was really removed
+//! drop(test_db);
+//! assert!(!path.exists()); // Neccessary to test if path war removed
 //! ```
 //!
 //! # Example with migration

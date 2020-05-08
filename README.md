@@ -1,5 +1,9 @@
 # Nafta
 
+[![Build Status](https://github.com/fbucek/nafta/workflows/build/badge.svg)](https://github.com/fbucek/nafta/actions)
+[![Documentation](https://docs.rs/nafta/badge.svg)](https://docs.rs/nafta)
+[![crates.io](https://meritbadge.herokuapp.com/actix-web)](https://crates.io/crates/nafta)
+
 Creates temporary SQLite database for testing using diesel.
 
 ```toml
@@ -7,27 +11,22 @@ Creates temporary SQLite database for testing using diesel.
 nafta = { git = "https://github.com/fbucek/nafta" }
 ```
 
-
 ## Minimal example
 
 ```rust
-// Database
-extern crate diesel;
+// Creates empty SQLite database in temporary folder
+let test_db = nafta::sqlite::TestDb::new();
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test_get_user() {
-        // Creates empty SQLite database in temporary folder
-        let test_db = nafta::sqlite::TestDb::new();
-        let pool = std::sync::Arc::new(test_db.pool);
-        // Use code to work with the pool
-        // You can check that database is removed
-        let path = test_db.db_path.to_owned();
-        drop(test_db);
-        assert!(!path.exists());
-    }
-}
+// Work with the connetion
+let conn = test_db.conn();
+
+// You can check that database file was really removed
+let path = test_db.db_path.clone();
+// Necessary to drop anything which can block file
+drop(conn); 
+// Dropping `test_db` to check it was really removed
+drop(test_db);
+assert!(!path.exists()); 
 ```
 ## Example with migration
 
@@ -62,3 +61,7 @@ mod tests {
     }
 }
 ```
+
+## Building on windows 
+
+See build batch for windows: `.github/install-sqlite.bat`
