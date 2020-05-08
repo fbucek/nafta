@@ -57,8 +57,28 @@ mod tests {
         let path = test_db.db_path.to_owned();
         assert!(path.exists());
 
+        let dirpath = test_db.tmp_dir.path().to_path_buf();
+        assert!(dirpath.exists());
+
         // Path after TestDb is drop must not exists
+        
+        if dirpath.exists() {
+            let list = std::fs::read_dir(&dirpath).unwrap();
+            for item in list {
+                println!("Name: {:?}", item);
+            }
+        }
+        
         drop(test_db);
+
+
+        let list = std::fs::read_dir(&dirpath).unwrap();
+        for item in list {
+            println!("Name: {:?}", item);
+        }
+
+
+        assert!(!dirpath.exists());
         assert!(!path.exists());
     }
 }
