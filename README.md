@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/fbucek/nafta/workflows/build/badge.svg)](https://github.com/fbucek/nafta/actions)
 [![Documentation](https://docs.rs/nafta/badge.svg)](https://docs.rs/nafta)
-[![crates.io](https://meritbadge.herokuapp.com/actix-web)](https://crates.io/crates/nafta)
+[![crates.io](https://meritbadge.herokuapp.com/nafta)](https://crates.io/crates/nafta)
 
 Creates temporary SQLite database for testing using diesel.
 
