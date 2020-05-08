@@ -9,10 +9,10 @@ repository = "https://github.com/fbucek/nafta"
 readme = "README.md"
 exclude = [".github/*"]
 keywords = ["database", "sqlite", "test"]
-category = ["Development tools"]
+categories = ["development-tools::testing"]
 
 [dependencies]
-tempdir = "0.3"
+tempfile = "3.1"
 diesel = { version = "1.4", features = ["r2d2", "sqlite"] }
 
 [dev-dependencies]

@@ -74,7 +74,8 @@ mod tests {
         assert_eq!(last_post.body, "not empty body");
 
         // Path after TestDb is drop must not exists
-        drop(test_db);
+        drop( conn); // First connection which holds ref to Pool must be droped!!!
+        drop(test_db); // Drop TestDb
         assert!(!path.exists());
     }
 }
