@@ -29,6 +29,7 @@ jobs:
     env: 
       SQLITE3_LIB_DIR: "C:\\sqlite"
     steps:
+    - uses: actions/checkout@v1
     - name: "Install SQLite"
       shell: cmd
       run: .github/install-sqlite.bat
@@ -39,7 +40,6 @@ jobs:
           # call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           # lib /machine:x64 /def:sqlite3.def /out:sqlite3.lib
           # set PATH=%PATH%;C:\sqlite
-    - uses: actions/checkout@v1
     # - name: Build
     #   run: cargo build 
     - name: Run tests
