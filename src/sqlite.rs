@@ -42,7 +42,19 @@ impl TestDb {
         // Result -> Ok
         self.pool.get().ok()
     }
+
 }
+
+impl Drop for TestDb {
+    fn drop(&mut self) {
+        // Have to remove file before temp_dir goes out of scope
+        // @see https://docs.rs/tempfile/3.1.0/tempfile/struct.TempDir.html#resource-leaking
+        std::fs::remove_file(&self.db_path)
+            .expect(format!("Not possible to remove self.db_path: {:?}", self.db_path).as_str());
+    }
+}
+
+
 
 #[cfg(test)]
 mod tests {
