@@ -2,6 +2,11 @@
 //!
 //! Creates temporary SQLite database for testing using diesel.
 //! 
+//! ```toml
+//! [dev-dependencies]
+//! nafta = "0.1"
+//! ```
+//!
 //!  # Minimal example
 //! 
 //! ```rust
