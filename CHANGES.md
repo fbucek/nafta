@@ -1,5 +1,21 @@
 # Changes
 
+## [0.1.3] - 2020-05-10
+
+### Changed
+
+* Added unitest for tempfile
+* Known issue #9 test randomly fail on GitHub Actions Windows Server build
+   - Not possible to reproduce bug on local Windows.
+
+## [0.1.2] - 2020-05-08
+
+### Changed
+
+* Updated documentation
+
+[#8]: https://github.com/actix/actix-web/pull/1422
+
 ## [0.1.1] - 2020-05-08
 
 ### Changed
